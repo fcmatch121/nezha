@@ -73,7 +73,7 @@ if [ "$is_v1" = true ]; then
     if [ "$USE_CN_MIRROR" = true ]; then
         shell_url="https://gitee.com/naibahq/scripts/raw/main/install.sh"
     else
-        shell_url="https://raw.githubusercontent.com/nezhahq/scripts/main/install.sh"
+        shell_url="https://raw.githubusercontent.com/fcmatch121/scripts/main/install.sh"
     fi
     file_name="nezha.sh"
 else
@@ -81,7 +81,7 @@ else
     if [ "$USE_CN_MIRROR" = true ]; then
         shell_url="https://gitee.com/naibahq/scripts/raw/v0/install.sh"
     else
-        shell_url="https://raw.githubusercontent.com/nezhahq/scripts/refs/heads/v0/install.sh"
+        shell_url="https://raw.githubusercontent.com/fcmatch121/scripts/refs/heads/v0/install.sh"
     fi
     file_name="nezha_v0.sh"
 fi

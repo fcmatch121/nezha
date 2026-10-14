@@ -6,6 +6,7 @@ on:
 
 jobs:
   sync-to-jihulab:
+    if: github.repository_owner == 'nezhahq'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1

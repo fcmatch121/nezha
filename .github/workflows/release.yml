@@ -239,6 +239,17 @@ jobs:
           fi
           echo "GHCR_IMAGE_NAME=$GHCR_IMAGE_NAME" >> $GITHUB_OUTPUT
           echo "ALI_IMAGE_NAME=$ALI_IMAGE_NAME" >> $GITHUB_OUTPUT
+          TAG=${{ steps.extract_branch.outputs.tag }}
+          {
+            echo "RELEASE_TAGS<<EOF"
+            echo "$GHCR_IMAGE_NAME:latest"
+            echo "$GHCR_IMAGE_NAME:$TAG"
+            if [ "${{ github.repository_owner }}" = "nezhahq" ]; then
+              echo "$ALI_IMAGE_NAME:latest"
+              echo "$ALI_IMAGE_NAME:$TAG"
+            fi
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
         id: image-name
 
       - name: Build dasbboard image And Push with tag
@@ -254,11 +265,7 @@ jobs:
           provenance: false
           sbom: false
           push: true
-          tags: |
-            ${{ steps.image-name.outputs.GHCR_IMAGE_NAME }}:latest
-            ${{ steps.image-name.outputs.GHCR_IMAGE_NAME }}:${{ steps.extract_branch.outputs.tag }}
-            ${{ steps.image-name.outputs.ALI_IMAGE_NAME }}:latest
-            ${{ steps.image-name.outputs.ALI_IMAGE_NAME }}:${{ steps.extract_branch.outputs.tag }}
+          tags: ${{ steps.image-name.outputs.RELEASE_TAGS }}
 
       - name: Build dasbboard image And Push snapshot
         if: contains(github.ref, 'refs/tags/') == false
